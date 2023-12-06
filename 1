@@ -1,0 +1,36 @@
+section .data
+Num_Array db 11h,12h,13h,14h,15h
+
+msg db "Result of array addition is", 10
+msglen equ $-msg
+
+section .bss
+Result resw 1
+temp resw 1
+;temp1 resb 1
+
+%macro rw 4
+mov rax,%1
+mov rdi,%2
+mov rsi,%3
+mov rdx,%4
+syscall
+%endmacro
+
+section .text
+global _start
+_start:
+rw 1,1,msg,msglen
+mov rsi,Num_Array
+mov ax,00h
+mov bx,0h
+mov cx,5
+up2: mov bl, byte[rsi]
+add ax,bx
+jnc skip
+inc ah
+skip:
+inc rsi
+dec cx
+jnz up2
+mov word[Result],ax
