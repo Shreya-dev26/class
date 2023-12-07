@@ -1,4 +1,81 @@
 // adding array ele
+//theory
+algo for hard coded array add
+Declare an array of 5 hex numbers.
+2. Initialize pointer to array, counter=5, and result= 0
+3. Read the byte from array
+4. Perform 16bit addition (For example AX+BX)
+5. If carry is generated increment AH
+6. Increment pointer
+7. Decrement counter
+8. Repeat steps 3 to 6 till counter becomes zero.
+9. Store the sum in ‘result’ variable.
+10. Call Display procedure
+
+display algo
+Load result in AX register, initialize counter=4
+2. Rotate left AX by 4 bits
+3. Save the rotated result to BX
+4. And AX with 0Fh
+5. Convert to ASCII : (compare the digit with 09
+If digit < 9, add 30H else add 37H to it).
+6. print the byte with system write call
+7. Move BX contents to AX
+6. Decrement counter
+7. Repeat steps 2 to 6 till counter becomes zero.
+Do not use rax,rcx,rsi,rdi,rdx as pointers since they are used in system calls.
+You can use rbp and rbx as pointers and take memory variables for counter.
+
+//algo for accepting n ele of array
+Display msg “Enter a 2 digit number”
+2. Accept number from user
+3. Initialize pointer to number, result=0, and counter=2
+4. Read the byte
+5. Convert it to hex by subtracting 30h/37H
+6. Rotate left the result
+7. Add the hex digit to result
+8. Increment pointer
+9. Decrement counter
+10.Repeat 4 to 9 till counter becomes 0
+prog
+Mov Al,0
+Mov rsi,num
+Mov dl,02
+Up:Mov cl,byte
+
+[num
+]
+
+Cmp cl,39h
+Jbe down
+Sub cl,07h
+Down: sub cl,30H
+Rol al,4
+Add al,cl
+Inc rsi
+Dec dl
+jnz up
+
+//accept array from user
+Display msg “Enter no of elements”
+2. Accept N from user
+3. Initialize pointer1 to array and counter1=N
+4. Display msg “Enter a 2 digit number”
+5. Accept number from user
+6. Initialize pointer2 to number, result=0, and counter2=2
+7. Read the byte
+8. Convert it to hex by subtracting 30h/37H
+9. Rotate left the result
+10. Add the hex digit to result
+11. Increment pointer2
+12. Decrement counter2
+13. Repeat 7 to 12 till counter2 becomes 0
+14. Save the number to array
+15. Increment pointer1
+16. Decrement counter1
+17. Repeat 4 to 16 till counter1 becomes 0
+
+//code
 
 section .data
 Num_Array db 11h,12h,13h,14h,15h
