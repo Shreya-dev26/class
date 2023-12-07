@@ -1,5 +1,81 @@
 //bcd to hex
+BCD : 255 EQUIVALENT HEX : FF
 
+• Step 1 : 0 X 0A + 2 = 2
+• Step 2 : 2 X 0A + 5 = 14 + 5 = 19
+• Step 3 : 19 X 0A + 6 = FA + 5 = FF
+
+30-10-2023 MMC Assignment 3: Convert BCD toHex
+
+S3 2023-24 6
+
+User Input
+
+• BCD : 32 35 35 0A
+
+1. Get BCD number from user and store in memory
+2. Initialize the ‘product’ to 0
+3. Access memory and Check whether entered character is 0AH , if
+yes go to step 6
+4. Subtract 30H from accessed byte and add to ‘product’ multiplied
+by 0A
+5. go to step 3
+6. Call display function
+
+• Step 1 : 0 X 0A +(32-30=) 2 = 2
+• Step 2 : 2 X 0A + (35-30=) 5 = 14 + 5 = 19
+• Step 3 : 19 X 0A + (35-30=) 5 = FF
+
+30-10-2023 MMC Assignment 3: Convert BCD toHex
+
+S3 2023-24 7
+
+30-10-2023
+
+MMC Assignment 3: Convert BCD toHex S3 2023-24 8
+
+Convert BCD to Hex
+
+1. Initialize product to 0
+2. Accept max 5 digit BCD no (upto 65535)
+3. Extract first digit
+4. Convert it from ASCII to hex
+5. Multiply the product by 0Ah
+6. Add the extracted digit to it
+7. Increment the pointer
+8. Repeat steps 3 to 7 until you read “0a”(Enter
+key).
+9. Display the product.
+
+
+MUL instruction
+
+• Unsigned multiplication
+Multiplicand Multiplier Product
+Byte AL AH:AL
+Word AX DX:AX
+Doubleword EAX EDX:EAX
+Accumulator is implicit operand
+e.g. MOV BX,0AH ; BX=0A
+MOV AX,05H ; AX=05
+MUL BX ; DX=00 , AX=32
+
+30-10-2023
+
+MMC Assignment 3: Convert BCD toHex S3 2023-24 12
+DIV instruction
+
+Divisor Dividend Remainder Quotient
+Byte AX AH AL
+Word DX:AX DX AX
+Double word EDX:EAX EDX EAX
+
+e.g. MOV BX,0Ah
+MOV DX,00h
+MOV AX,[num]
+DIV BX
+
+//code
 section .bss
 num resb 6
 section .data
