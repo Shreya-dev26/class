@@ -1,3 +1,5 @@
+// adding array ele
+
 section .data
 Num_Array db 11h,12h,13h,14h,15h
 
@@ -34,3 +36,19 @@ inc rsi
 dec cx
 jnz up2
 mov word[Result],ax
+
+//display
+mov ax, word[Result]
+mov bp,4
+up: rol ax,4
+mov bx,ax
+and ax,0Fh
+cmp al,09
+jbe down
+add al,07h
+down: Add al, 30h
+mov byte[temp],al
+rw 1,1, temp,1
+mov ax,bx
+dec bp
+jnz up
