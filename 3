@@ -1,0 +1,60 @@
+//bcd to hex
+
+section .bss
+num resb 6
+section .data
+digit db 0 ;single digit store before display
+temp dw 0 ;after rotating
+mult dw oAh
+product dw 0
+msg1 db "Enter 5 digit BCD number:",10
+msg1len equ $-msg1
+msg2 db "Hex Equivalent number:",10
+msg2len equ $-msg2
+%macro operat 4
+mov rax,%1
+mov rdi,%2
+mov rsi,%3
+mov rdx,%4 syscall
+%endmacro
+section .text
+global _start
+_start:
+operat 1,1, msg1,msg1len
+operat 0,0, num,6 ;BCD no e.g.123
+mov rsi,num
+mov cx,0ah
+mov ax,0
+mov bx,0
+up: mov bl, [rsi]
+cmp bl,0ah
+je skip
+sub bl,30h ;extract the digit
+mul cx ;multiply by 0ah
+add ax,bx ;add the digit to product
+inc rsi
+jmp up
+
+skip:
+
+call disp
+operat 60,0, 0,0
+
+disp:
+
+mov [temp],ax
+operat 1,1, msg2,msg2len
+mov ax, [temp]
+nextdigit: rol ax,4
+mov [temp],ax
+and ax,0Fh
+cmp al,09h
+jbe down
+add al,07h
+down: add al, 30h
+mov [digit],al
+operat 1,1,digit,1
+mov ax, [temp]
+dec byte[count]
+jnz nextdigit
+ret
